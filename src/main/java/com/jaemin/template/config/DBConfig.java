@@ -16,8 +16,11 @@ import org.springframework.context.annotation.Configuration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Configuration
 @MapperScan(basePackages= {"com.jaemin.template.dao"})
+@Slf4j
 public class DBConfig {
 	
 	@Autowired
@@ -25,6 +28,7 @@ public class DBConfig {
 	
 	@Bean
 	public DataSource dataSource() {
+		log.info("CALL =====DBConfig dataSource =====");
 		HikariConfig config = new HikariConfig("/prop/database.properties");
 		HikariDataSource ds = new HikariDataSource(config);
 		return ds;
@@ -32,6 +36,7 @@ public class DBConfig {
 
 	@Bean
 	public SqlSessionTemplate sqlSessionTemplate(DataSource ds) throws Exception {
+		log.info("CALL =====DBConfig sqlSessionTemplate =====");
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(ds);
         bean.setMapperLocations(context.getResources("classpath:mybatis/sql/*.xml"));
@@ -40,21 +45,5 @@ public class DBConfig {
         return new SqlSessionTemplate(fac);
 	}
 	
-	/*
-	@Bean
-    public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
-        bean.setDataSource(dataSource);
-        bean.setMapperLocations(context.getResources("classpath:mybatis/sql/*.xml"));
-        bean.setTypeAliasesPackage("com.jaemin.template.vo, com.jaemin.template.util");
-        return bean.getObject();
-    }
-
-	
-    @Bean
-    public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
-        return new SqlSessionTemplate(sqlSessionFactory);
-    }
-    */
 
 }

@@ -20,7 +20,7 @@ public class TestArgumentResolver implements HandlerMethodArgumentResolver {
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
 
-		log.info("============TestArgumentResolver============");
+		log.info("============ArgumentResolver supportsParameter start ============");
 		log.info("TestArgumentResolver supportsParameter call");
 		log.info(Arrays.toString(getClass().getMethods()));
 		log.info(parameter.getMethod().getName());
@@ -28,13 +28,15 @@ public class TestArgumentResolver implements HandlerMethodArgumentResolver {
 		boolean hasTestAnnotation = parameter.hasParameterAnnotation(Checker.class);
 		boolean hasMemberType = TestVO.class.isAssignableFrom(parameter.getParameterType());
 		
+		log.info("============ArgumentResolver supportsParameter end ============");
 		return hasTestAnnotation && hasMemberType;
 	}
 
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
-		log.info("resolverArgument call");
+		log.info("============ArgumentResolver resolveArgument start ============");
+		
 		HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
 		
 		log.info("request Addr ={}", request.getRemoteAddr());
@@ -43,8 +45,9 @@ public class TestArgumentResolver implements HandlerMethodArgumentResolver {
 		mm.keySet().stream().forEach(key -> 
 			log.info("resolveArgument key={}, value={}",key,mm.get(key))
 		);
-		
+		log.info("vo = {}",request.getAttribute("testVO"));
 		log.info("id = {} , pw = {} ",request.getAttribute("id"),request.getAttribute("pw"));
+		log.info("============ArgumentResolver resolveArgument end ============");
 		return new TestVO("0","0");
 	}
 
