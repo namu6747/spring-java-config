@@ -1,5 +1,7 @@
 package com.jaemin.template.config;
 
+import java.io.IOException;
+
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -29,6 +31,17 @@ public class DBConfig {
 	}
 
 	@Bean
+	public SqlSessionTemplate sqlSessionTemplate(DataSource ds) throws Exception {
+		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+        bean.setDataSource(ds);
+        bean.setMapperLocations(context.getResources("classpath:mybatis/sql/*.xml"));
+        bean.setTypeAliasesPackage("com.jaemin.template.vo");
+        SqlSessionFactory fac = bean.getObject();
+        return new SqlSessionTemplate(fac);
+	}
+	
+	/*
+	@Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
         bean.setDataSource(dataSource);
@@ -37,9 +50,11 @@ public class DBConfig {
         return bean.getObject();
     }
 
+	
     @Bean
     public SqlSessionTemplate sqlSessionTemplate(SqlSessionFactory sqlSessionFactory) {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
+    */
 
 }
