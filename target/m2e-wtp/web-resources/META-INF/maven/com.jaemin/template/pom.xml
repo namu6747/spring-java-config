@@ -35,6 +35,15 @@
 		</dependency>
 
 		<!-- AspectJ -->
+<!-- add spring-aop -->
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-aop -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-aop</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		
+		
 <!-- add aspectjweaver -->
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
 		<dependency>
@@ -44,7 +53,7 @@
 		    <scope>runtime</scope>
 		</dependency>
 
-<!--  add AOP tools -->
+<!--  add aspectjrt -->
 		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjrt -->
 		<dependency>
 			<groupId>org.aspectj</groupId>
@@ -54,6 +63,14 @@
 <!-- delete scope -->			
 		</dependency>
 
+<!-- add aspectjtools -->
+		<!-- https://mvnrepository.com/artifact/org.aspectj/aspectjtools -->
+		<dependency>
+		    <groupId>org.aspectj</groupId>
+		    <artifactId>aspectjtools</artifactId>
+		    <version>${org.aspectj-version}</version>
+		</dependency>
+		
 
 		<!-- Logging -->
 		<dependency>
@@ -210,9 +227,6 @@
 		    <artifactId>hibernate-validator</artifactId>
 		    <version>7.0.4.Final</version>
 		</dependency>
-		
-		
-		
 	</dependencies>
 	
 	<build>

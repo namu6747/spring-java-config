@@ -71,7 +71,7 @@ public class TestController {
         log.info("headerMap={}", headerMap);
         log.info("header host={}", host);
         log.info("JSESSIONID={}", cookie);
-        return "ok";
+        return "redirect:/";
     }
 	
 }

@@ -12,22 +12,23 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Aspect
-@ControllerAdvice
+@Component
 public class TestAdvice {
 
-	@Around("execution(* com.jaemin.template.*.*(..))")
-	public Object checkService(
-			ProceedingJoinPoint pjp
-		)throws Throwable{
-	// 전처리
-	log.info("===== around ServiceAdvice START =====");
-	log.info("--- target : "+pjp.getTarget());
-	log.info("--- method : "+pjp.getSignature().getName());
-	log.info("--- params : "+Arrays.toString(pjp.getArgs()));
-	Object o = pjp.proceed(); // 실체 메소드 실행
-	// 후처리
-	log.info("--- return value :" + o); 
-	log.info("===== around ServiceAdvice END =====");
-	return o;
-}
+	@Around ("execution(* com.jaemin.template.controller.*.*(..))")
+	public Object checkService(ProceedingJoinPoint pjp) throws Throwable {
+		log.info("===== around ServiceAdvice START =====");
+		long start = System.currentTimeMillis();
+		log.info("--- target : " + pjp.getTarget());
+		log.info("--- method : " + pjp.getSignature().getName());
+		log.info("--- params : " + Arrays.toString(pjp.getArgs()));
+		try {
+			return pjp.proceed();
+		} finally {
+			long finish = System.currentTimeMillis();
+            long timeMs = finish - start;
+            System.out.println("END : "+ pjp + " " + timeMs + "ms");
+			log.info("===== around ServiceAdvice END =====");
+		}
+	}
 }
