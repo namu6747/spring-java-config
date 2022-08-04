@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(basePackages = { "com.jaemin.template" }, 
+@ComponentScan(// basePackages = { "com.jaemin.template" }, 
 							excludeFilters = @ComponentScan.Filter(
 									type = FilterType.ANNOTATION,
 									classes = Configuration.class))
@@ -58,7 +58,7 @@ public class AppConfig implements WebMvcConfigurer {
 		log.info("CALL =====AppConfig addInterceptors =====");
 		registry.addInterceptor(new TestInterceptor())
 		.order(1)
-		.addPathPatterns("/add");
+		.addPathPatterns("/**");
 		//.excludePathPatterns("/css/**","/*.ico", "/error", "/error-page/**");
 	}
 

@@ -31,7 +31,13 @@ public class TestInterceptor implements HandlerInterceptor {
 	@Override
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
-		log.info("START =====Interceptor afterCompletion===== END");
+		log.info("START =====Interceptor afterCompletion===== ");
+		log.info("status code = {}",response.getStatus());
+		if(ex != null) {
+			log.error(ex.getStackTrace().toString());
+			
+		}
+		log.info("END =====Interceptor afterCompletion===== ");
 	}
 	
 	
