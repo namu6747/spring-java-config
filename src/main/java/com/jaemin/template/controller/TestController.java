@@ -12,15 +12,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
-import com.jaemin.template.resolver.Checker;
 import com.jaemin.template.service.TestService;
 import com.jaemin.template.vo.TestVO;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,10 +47,11 @@ public class TestController {
 	}
 	
 	@PostMapping("/add")
-	public String test(TestVO vo, BindingResult bindingResult) {  //@Checker 
+	public String test(@Valid TestVO vo, BindingResult bindingResult) {  //@Checker 
 		log.info("+_+_+_=-=_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+");
 		log.info("START ===== Controller VO = {}",vo);
 		log.info("에러 몇개지 = {}", bindingResult.getErrorCount());
+		System.out.println(bindingResult.hasErrors());
 		service.test(vo);
 		log.info("END ===== Controller =====");
 		return "redirect:/";

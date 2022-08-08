@@ -3,22 +3,17 @@ package com.jaemin.template.config;
 import java.time.Duration;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.hibernate.validator.HibernateValidator;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.CacheControl;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
-import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerExceptionResolver;
-import org.springframework.web.servlet.NoHandlerFoundException;
-import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -27,7 +22,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.jaemin.template.exception.TestHandlerExceptionResolver;
 import com.jaemin.template.interceptor.TestInterceptor;
-import com.jaemin.template.resolver.TestArgumentResolver;
 import com.jaemin.template.typeconverter.TestConverter;
 import com.jaemin.template.typeconverter.TestFormatter;
 
@@ -90,5 +84,5 @@ public class AppConfig implements WebMvcConfigurer {
 		log.info("6.CALL =====AppConfig configureViewResolvers =====");
 		registry.jsp("/WEB-INF/views/", ".jsp");
 	}
-	
+
 }
