@@ -11,13 +11,11 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.jaemin.template.resolver.Checker;
 import com.jaemin.template.service.TestService;
@@ -48,8 +46,10 @@ public class TestController {
 	}
 	
 	@PostMapping("/add")
-	public String test(TestVO vo) { //@Checker 
+	public String test(TestVO vo, BindingResult bindingResult) {  //@Checker 
+		log.info("+_+_+_=-=_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+");
 		log.info("START ===== Controller VO = {}",vo);
+		log.info("에러 몇개지 = {}", bindingResult.getErrorCount());
 		service.test(vo);
 		log.info("END ===== Controller =====");
 		return "redirect:/";
@@ -78,8 +78,7 @@ public class TestController {
 	
 	@GetMapping("/ex")
 	public String exception() {
-		new RuntimeException("Test Exception");
-		return "hello";
+		throw new RuntimeException("Test Exception");
 	}
 	
 	

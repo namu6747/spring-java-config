@@ -37,18 +37,15 @@ public class TestArgumentResolver implements HandlerMethodArgumentResolver {
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		log.info("============ArgumentResolver resolveArgument start ============");
 		
-		HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();
+		webRequest.getParameterNames().forEachRemaining(obj -> log.info("parameter = {}",obj));
 		
+		HttpServletRequest request = (HttpServletRequest)webRequest.getNativeRequest();//.getNativeRequest();
+		request.getParameterMap().values().stream().forEach(obj -> log.info("request Value = {} ", obj));
+		log.info("request URL = {}",request.getRequestURL());
 		log.info("request Addr ={}", request.getRemoteAddr());
 		log.info("request Host ={}", request.getRemoteHost());
-		ModelMap mm = mavContainer.getModel();
-		mm.keySet().stream().forEach(key -> 
-			log.info("resolveArgument key={}, value={}",key,mm.get(key))
-		);
-		log.info("vo = {}",request.getAttribute("testVO"));
-		log.info("id = {} , pw = {} ",request.getAttribute("id"),request.getAttribute("pw"));
 		log.info("============ArgumentResolver resolveArgument end ============");
-		return new TestVO("0","0");
+		return new TestVO(request.getParameter("id"),request.getParameter("pw"));
 	}
 
 }

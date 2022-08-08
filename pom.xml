@@ -217,6 +217,13 @@
 		    <version>2.13.3</version>
 		</dependency>
 		
+		<!-- @Inject -->
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		
 <!-- add hibernate-validator -->
 		<dependency>
 		    <groupId>org.hibernate.validator</groupId>
@@ -237,7 +244,14 @@
 		    <artifactId>commons-fileupload</artifactId>
 		    <version>1.4</version>
 		</dependency>
-		
+<!-- add assertj-core -->
+		<dependency>
+		    <groupId>org.assertj</groupId>
+		    <artifactId>assertj-core</artifactId>
+		    <version>3.23.1</version>
+		    <scope>test</scope>
+		</dependency>
+				
 	</dependencies>
 	
 	<build>

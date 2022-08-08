@@ -1,4 +1,4 @@
-package com.jaemin.template;
+package com.jaemin.template.aop;
 
 import javax.annotation.PostConstruct;
 
@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,11 +20,11 @@ public class TestAdvisor {
 		log.info("===== TestAdvisor initialized -=-=-=-=-");
 	}
 	
-	@ResponseStatus(value = HttpStatus.NOT_FOUND)
-	@ExceptionHandler(Exception.class)
+	//@ResponseStatus(value = HttpStatus.NOT_FOUND)
+	@ExceptionHandler // (NoHandlerFoundException.class)
 	public ModelAndView errorHandle(Exception ex) {
 		log.info("CALL ===== errorHandle =====");
-		return new ModelAndView("home");
+		return new ModelAndView("hello");
 	}
 	
 }

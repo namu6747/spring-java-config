@@ -1,19 +1,17 @@
 package com.jaemin.template.vo;
 
-import org.hibernate.validator.constraints.Range;
-import org.springframework.beans.factory.annotation.Value;
-
-import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 
 @Data
 public class TestVO {
 	
+	@NotNull
+	@NotBlank
 	private String id;
+	@NotBlank
 	private String pw;
 	
 	public TestVO(String id, String pw) {

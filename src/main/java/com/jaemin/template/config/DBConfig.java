@@ -11,6 +11,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.TransactionManager;
 
 import com.zaxxer.hikari.HikariConfig;
@@ -28,31 +29,22 @@ public class DBConfig {
 
 	@Bean
 	public DataSource dataSource() {
-		log.info("CALL =====DBConfig dataSource =====");
 		HikariConfig config = new HikariConfig("/prop/database.properties");
-		config.setPoolName("template");
-		config.setAutoCommit(false);
-		config.setMaximumPoolSize(10);
-		config.setMinimumIdle(1);
-		HikariDataSource ds = new HikariDataSource(config);
-		return ds;
+		return new HikariDataSource(config);
 	}
-
+	
 	@Bean
-	public SqlSessionTemplate sqlSessionTemplate(DataSource ds) throws Exception {
-		log.info("CALL =====DBConfig sqlSessionTemplate =====");
+	public SqlSessionFactory fac(DataSource ds) throws Exception {
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
 		bean.setDataSource(ds);
 		bean.setTypeAliasesPackage("com.jaemin.template.vo");
 		bean.setMapperLocations(context.getResources("classpath:mybatis/sql/*.xml"));
-		SqlSessionFactory fac = bean.getObject();
-		return new SqlSessionTemplate(fac);
+		return bean.getObject();
 	}
 
 	@Bean
-	public TransactionManager transactionManager() {
-		return new DataSourceTransactionManager(dataSource());
+	public TransactionManager transactionManager(DataSource ds) {
+		return new DataSourceTransactionManager(ds);
 	}
-
 	
 }
