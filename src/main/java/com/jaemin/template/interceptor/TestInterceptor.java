@@ -33,6 +33,10 @@ public class TestInterceptor implements HandlerInterceptor {
 			throws Exception {
 		log.info("START =====Interceptor afterCompletion===== ");
 		log.info("status code = {}",response.getStatus());
+		if(response.getStatus() == 400) {
+			// 응답이 이미 커밋된 후에는 sendRedirect를 호출할 수 없음
+			// response.sendRedirect("home");
+		}
 		if(ex != null) {
 			log.error(ex.getStackTrace().toString());
 			

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.jaemin.template.resolver.Checker;
 import com.jaemin.template.service.TestService;
@@ -75,6 +76,11 @@ public class TestController {
         return "redirect:/";
     }
 	
+	@GetMapping("/ex")
+	public String exception() {
+		new RuntimeException("Test Exception");
+		return "hello";
+	}
 	
 	
 }

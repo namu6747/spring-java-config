@@ -11,7 +11,6 @@ import lombok.Data;
 
 
 @Data
-@AllArgsConstructor
 public class TestVO {
 	
 	private String id;
@@ -22,11 +21,15 @@ public class TestVO {
 		this.pw = pw;
 	}
 	
-	@NotBlank
-    @NotNull
-    @Range(min = 1000, max = 1000000)
-    @Max(value = 9999)
-	@Value("${file.dir}")
-	private String temp;
-	
+	/*
+	 * @NotBlank
+	 * 
+	 * @NotNull
+	 * 
+	 * @Range(min = 1000, max = 1000000)
+	 * 
+	 * @Max(value = 9999)
+	 * 
+	 * @Value("${file.dir}") private String temp;
+	 */
 }

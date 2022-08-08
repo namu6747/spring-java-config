@@ -1,6 +1,7 @@
 package com.jaemin.template.config;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletContext;
 
 import org.springframework.context.annotation.Import;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -30,7 +31,7 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 		return new String[] { "/" };
 	}
 
-	@Override // 톰캣에  필터 다는 건 당연한 듯
+	@Override
 	protected Filter[] getServletFilters() {
 		log.info("CALL =====WebConfig getServletFilters =====");
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
@@ -38,7 +39,5 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
         characterEncodingFilter.setForceEncoding(true);
 		return new Filter[] { characterEncodingFilter };
 	}
-	
-	
 
 }

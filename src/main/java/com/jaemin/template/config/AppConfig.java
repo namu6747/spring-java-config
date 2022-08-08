@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
+import org.springframework.context.event.EventListener;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.CacheControl;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -28,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @EnableWebMvc
 @EnableAspectJAutoProxy
-@ComponentScan(// basePackages = { "com.jaemin.template" }, 
+@ComponentScan( basePackages = { "com.jaemin.template" }, 
 							excludeFilters = @ComponentScan.Filter(
 									type = FilterType.ANNOTATION,
 									classes = Configuration.class))
