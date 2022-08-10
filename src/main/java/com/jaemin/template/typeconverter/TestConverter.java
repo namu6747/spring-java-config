@@ -6,7 +6,7 @@ public class TestConverter implements Converter<String, String>{
 
 	@Override
 	public String convert(String source) {
-		return null;
+		return source;
 	}
 
 	

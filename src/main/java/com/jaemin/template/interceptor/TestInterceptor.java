@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.jaemin.template.vo.TestVO;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -15,9 +17,12 @@ public class TestInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		log.info("START =====Interceptor preHandle=====");
+		request.setAttribute("id", null);
 		String id = request.getParameter("id");
+		request.removeAttribute("id");
 		String pw = request.getParameter("pw");
 		log.info("preHandle id={}, pw={}", id,pw);
+		log.info("request get null = {} ", request.getParameter("id"));
 		log.info("END =====Interceptor preHandle=====");
 		return true;
 	}

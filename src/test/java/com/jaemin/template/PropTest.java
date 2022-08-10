@@ -13,6 +13,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.jaemin.template.config.WebConfig;
 
@@ -20,13 +21,20 @@ import junit.framework.Assert;
 import lombok.extern.slf4j.Slf4j;
 
 //@PropertySource("classpath:prop/database.properties")
-//@RunWith(SpringJUnit4ClassRunner.class)
-//t@ContextConfiguration(classes = WebConfig.class)
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = WebConfig.class)
 @Slf4j
+@PropertySource({"classpath:/prop/file.properties" , "classpath:prop/file.properties", "classpath:/file.properties", "classpath:file.properties"})
 public class PropTest {
 	
-	@Value("${jdbc.driver}") 
+	//@Value("${jdbc.driver}")
+	@Value("${file.path}")
 	String str;
+
+	@Test
+	public void propValueTest() {
+		log.info("file.path = {}",str);
+	}
 	
 	MessageSource ms;
 	
@@ -44,7 +52,7 @@ public class PropTest {
 	}
 	
 	
-	@Test
+	//@Test
 	public void 메시지테스트() {
 		ResourceBundleMessageSource message = new ResourceBundleMessageSource();
 		message.setBasename("messages");

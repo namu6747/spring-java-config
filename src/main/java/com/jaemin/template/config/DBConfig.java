@@ -21,7 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 
 @Configuration
 @MapperScan(basePackages = { "com.jaemin.template.dao" })
-@Slf4j
 public class DBConfig {
 
 	@Autowired
@@ -38,7 +37,7 @@ public class DBConfig {
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
 		bean.setDataSource(ds);
 		bean.setTypeAliasesPackage("com.jaemin.template.vo");
-		bean.setMapperLocations(context.getResources("classpath:mybatis/sql/*.xml"));
+		bean.setMapperLocations(context.getResources("classpath:mybatis/*.xml"));
 		return bean.getObject();
 	}
 

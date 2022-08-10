@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 @Configuration
 @Import(DBConfig.class)
@@ -18,6 +19,14 @@ public class RootConfig {
 		ms.setBasenames("messages", "errors");
 		ms.setDefaultEncoding("utf-8");
 		return ms;
+	}
+	
+	@Bean
+	public CommonsMultipartResolver multipartResolver() {
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver();
+		resolver.setDefaultEncoding("UTF-8");
+		resolver.setMaxUploadSize(1024 * 1024 * 10);
+		return resolver;
 	}
 
 }

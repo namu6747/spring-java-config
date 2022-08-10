@@ -4,15 +4,18 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,14 +24,24 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import com.jaemin.template.service.TestService;
 import com.jaemin.template.vo.TestVO;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
 @RequiredArgsConstructor
+@PropertySource("classpath:/prop/file.properties")
 public class TestController {
+	
+	@Value("${file.dir}")
+	String path;
+	
+	@PostConstruct
+	public void tempTest() {
+		log.info("****************************************");
+		log.info("file.path = {}", path);
+		log.info("****************************************");
+	}
 	
 	private final TestService service;
 	
@@ -47,14 +60,17 @@ public class TestController {
 	}
 	
 	@PostMapping("/add")
-	public String test(@Valid TestVO vo, BindingResult bindingResult) {  //@Checker 
+	public String test(@Valid TestVO vo, BindingResult bindingResult ) {//, BindingResult bindingResult) {  //@Checker 
 		log.info("+_+_+_=-=_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+");
 		log.info("START ===== Controller VO = {}",vo);
-		log.info("에러 몇개지 = {}", bindingResult.getErrorCount());
-		System.out.println(bindingResult.hasErrors());
+		log.info("TestVO = {}", vo);
+		if(bindingResult.hasErrors()) {
+			log.info("error detected");
+			return "redirect:/";
+		}
 		service.test(vo);
 		log.info("END ===== Controller =====");
-		return "redirect:/";
+		return "hello";
 	}
 	
 	@GetMapping("/headers")

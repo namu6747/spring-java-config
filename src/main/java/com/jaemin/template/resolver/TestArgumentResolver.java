@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class TestArgumentResolver implements HandlerMethodArgumentResolver {
+	
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
 
@@ -31,6 +32,8 @@ public class TestArgumentResolver implements HandlerMethodArgumentResolver {
 		log.info("============ArgumentResolver supportsParameter end ============");
 		return hasTestAnnotation && hasMemberType;
 	}
+	
+	// 컨버터 제거 후 전체 정상 동작  ***********
 
 	@Override
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
@@ -45,7 +48,11 @@ public class TestArgumentResolver implements HandlerMethodArgumentResolver {
 		log.info("request Addr ={}", request.getRemoteAddr());
 		log.info("request Host ={}", request.getRemoteHost());
 		log.info("============ArgumentResolver resolveArgument end ============");
-		return new TestVO(request.getParameter("id"),request.getParameter("pw"));
+		String id = request.getParameter("id");
+		log.info("id = {}", id);
+		if(id.equals(""))id = null;
+		String pw = request.getParameter("pw");
+		return new TestVO(null,pw);
 	}
 
 }
