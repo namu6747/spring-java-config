@@ -5,10 +5,19 @@ PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
 <mapper namespace="com.jaemin.template.dao.TestDAO">
 
 	<insert id="save" parameterType="TestVO">
-		INSERT INTO test_tbl(id,pw)
-		VALUES(#{id},#{pw})
+		INSERT INTO test_tbl(id,pw,camel_test)
+		VALUES(#{id},#{pw},#{camelTest})
 	</insert>
 	
+	<select id="findAll" resultType="TestVO" >
+		SELECT camel_test FROM test_tbl WHERE CAMEL_TEST IS NOT NULL
+	</select>
+	
+	<select id="findByTest" parameterType="String"
+		resultType="TestVO">
+		SELECT * FROM test_tbl WHERE camel_test = #{args}
+	</select>
+		
 </mapper>
 
 

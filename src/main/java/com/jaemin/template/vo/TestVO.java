@@ -2,24 +2,26 @@ package com.jaemin.template.vo;
 
 import javax.validation.constraints.NotBlank;
 
+import lombok.AllArgsConstructor;
+
 //import javax.validation.constraints.NotBlank;
 //import javax.validation.constraints.NotNull;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class TestVO {
 	
+	private Integer num;
+	private String camelTest;
 	@NotBlank
 	private String id;
 	@NotBlank
 	private String pw;
-	
-	public TestVO(String id, String pw) {
-		this.id = id;
-		this.pw = pw;
-	}
 	
 	/*
 	 * @NotBlank

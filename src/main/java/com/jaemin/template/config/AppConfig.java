@@ -39,7 +39,6 @@ public class AppConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
-		// 컨버터에서가 AOP 이전에 실행된다.
 		registry.addConverter(new TestConverter());
 		registry.addFormatter(new TestFormatter());
 	}

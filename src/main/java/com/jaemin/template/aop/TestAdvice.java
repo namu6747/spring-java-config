@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class TestAdvice {
 
-	@Around ("execution(* com.jaemin.template.controller.*.*(..))")
+	@Around ("execution(* com.jaemin.template.*.*.*(..))")
 	public Object checkService(ProceedingJoinPoint pjp) throws Throwable {
 		log.info("===== around ServiceAdvice START =====");
 		long start = System.currentTimeMillis();

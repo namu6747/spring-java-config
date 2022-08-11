@@ -16,11 +16,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 
+import com.jaemin.template.resolver.Checker;
 import com.jaemin.template.service.TestService;
 import com.jaemin.template.vo.TestVO;
 
@@ -60,17 +63,17 @@ public class TestController {
 	}
 	
 	@PostMapping("/add")
-	public String test(@Valid TestVO vo, BindingResult bindingResult ) {//, BindingResult bindingResult) {  //@Checker 
+	public String test(@Checker @Valid @ModelAttribute TestVO vo, BindingResult bindingResult ) { //@Checker  
 		log.info("+_+_+_=-=_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+");
 		log.info("START ===== Controller VO = {}",vo);
 		log.info("TestVO = {}", vo);
 		if(bindingResult.hasErrors()) {
 			log.info("error detected");
-			return "redirect:/";
+			return "hello";
 		}
 		service.test(vo);
 		log.info("END ===== Controller =====");
-		return "hello";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/headers")

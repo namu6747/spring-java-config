@@ -2,24 +2,22 @@ package com.jaemin.template.config;
 
 import javax.sql.DataSource;
 
+import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.TransactionManager;
 
+import com.jaemin.template.annotation.DatabaseConfiguration;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Configuration
+@DatabaseConfiguration
 @MapperScan(basePackages = { "com.jaemin.template.dao" })
 public class DBConfig {
 
@@ -35,6 +33,12 @@ public class DBConfig {
 	@Bean
 	public SqlSessionFactory fac(DataSource ds) throws Exception {
 		SqlSessionFactoryBean bean = new SqlSessionFactoryBean();
+		new org.apache.ibatis.session.Configuration();
+		
+		Configuration config = new Configuration();
+		config.setMapUnderscoreToCamelCase(true);
+		bean.setConfiguration(config);
+		
 		bean.setDataSource(ds);
 		bean.setTypeAliasesPackage("com.jaemin.template.vo");
 		bean.setMapperLocations(context.getResources("classpath:mybatis/*.xml"));

@@ -34,7 +34,6 @@ public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitiali
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("UTF-8");
         characterEncodingFilter.setForceEncoding(true);
-        // Servlet Spec 에 form data 는 포스트 형태로만 전송되지만 풋, 패치, 딜리트도 가능하게 만들어줌
 		return new Filter[] { new FormContentFilter(), new HiddenHttpMethodFilter(), characterEncodingFilter};
 	}
 

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -23,7 +24,10 @@ public class TestAdvisor {
 	//@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	@ExceptionHandler // (NoHandlerFoundException.class)
 	public ModelAndView errorHandle(Exception ex) {
-		log.info("CALL ===== errorHandle =====");
+		log.info("**Call** class = {}, method = {}",getClass().getName(),"errorHandle");
+		log.error("getMessage = {}",ex.getMessage());
+		log.info("==========info error vs stackTrace");
+		ex.printStackTrace();
 		return new ModelAndView("hello");
 	}
 	
