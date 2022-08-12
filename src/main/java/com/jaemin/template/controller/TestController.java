@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpMethod;
@@ -16,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -35,6 +35,9 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @PropertySource("classpath:/prop/file.properties")
 public class TestController {
+	
+	@Autowired
+	TestService ts;
 	
 	@Value("${file.dir}")
 	String path;
@@ -101,6 +104,25 @@ public class TestController {
 	public String exception() {
 		throw new RuntimeException("Test Exception");
 	}
+	
+	@GetMapping("/formtest")
+	public void formtest(@ModelAttribute TestVO vo) {}
+	
+	@PostMapping("/formtest")
+	public String addVO(@Valid TestVO vo, BindingResult bindingResult) {
+		if(bindingResult.hasErrors()) {
+			log.info("errors={}", bindingResult);
+			return "formtest";
+		}
+		
+		TestVO test = new TestVO();
+		test.setId(vo.getId());
+		test.setPw(vo.getPw());
+		ts.test(test);
+		log.info("********* clear");
+		return "home";
+	}
+	
 	
 	
 }

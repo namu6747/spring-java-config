@@ -18,5 +18,6 @@
 	</form>
 	
 	<a href="headers">headers</a>
+	<a href="formtest">form test</a>
 </body>
 </html>

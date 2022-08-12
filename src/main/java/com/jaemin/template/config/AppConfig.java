@@ -10,6 +10,9 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.http.CacheControl;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Schedules;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -27,7 +30,9 @@ import com.jaemin.template.typeconverter.TestFormatter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+@EnableAsync
 @EnableWebMvc
+@EnableScheduling
 @EnableAspectJAutoProxy
 @ComponentScan( basePackages = { "com.jaemin.template" }, 
 				excludeFilters = @ComponentScan.Filter(
